@@ -13,47 +13,80 @@
         }
         h1 {
             color: #333;
+            font-size: 24px;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .scenario {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
-            margin: 5px auto;
-            width: 90%;
-            max-width: 500px;
-            background: white;
+            padding: 12px;
+            margin: 5px 0;
             border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .status {
+            font-size: 18px;
             font-weight: bold;
+            color: white;
+        }
+        .human { background-color: #007BFF; } /* 人类驾驶 - 蓝色 */
+        .ai { background-color: #28A745; } /* 智驾系统 - 绿色 */
+        .status {
             padding: 5px 10px;
             border-radius: 5px;
-            color: white;
+            font-weight: bold;
+            text-align: center;
+            width: 100px;
         }
         .safe { background-color: green; }
         .crash { background-color: red; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            padding: 12px;
+            background-color: #444;
+            color: white;
+            border-radius: 10px;
+            font-size: 18px;
+        }
         button {
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 12px 20px;
             font-size: 16px;
             border: none;
-            background-color: blue;
+            background-color: #FF5733;
             color: white;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
         }
         button:hover {
-            background-color: darkblue;
+            background-color: #C70039;
         }
     </style>
 </head>
 <body>
 
-    <h1>智驾 vs 人类驾驶事故模拟</h1>
-    <div id="results"></div>
-    <button onclick="runSimulation()">刷新模拟</button>
+    <h1>🚗 智驾 vs 人类驾驶事故模拟 🚗</h1>
+    
+    <div class="container">
+        <div class="header">
+            <div>场景</div>
+            <div>人类驾驶</div>
+            <div>智驾系统</div>
+        </div>
+        <div id="results"></div>
+    </div>
+
+    <button onclick="runSimulation()">🔄 刷新模拟</button>
 
     <script>
         function getRandomBoolean(probability) {
@@ -77,10 +110,10 @@
                 resultHTML += `
                     <div class="scenario">
                         <div>${scenario.name}</div>
-                        <div class="status ${humanCrash ? 'crash' : 'safe'}">
+                        <div class="status ${humanCrash ? 'crash' : 'safe'} human">
                             ${humanCrash ? '🚨 事故' : '✅ 安全'}
                         </div>
-                        <div class="status ${aiCrash ? 'crash' : 'safe'}">
+                        <div class="status ${aiCrash ? 'crash' : 'safe'} ai">
                             ${aiCrash ? '🚨 事故' : '✅ 安全'}
                         </div>
                     </div>
