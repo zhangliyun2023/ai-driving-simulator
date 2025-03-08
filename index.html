@@ -3,27 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智驾 vs 人类驾驶事故模拟</title>
+    <title>🚗 智驾 vs 人类驾驶事故模拟 🚗</title>
     <style>
+        /* 🌟 全局样式 - 霓虹背景 */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 20px;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
         }
+
         h1 {
-            color: #333;
-            font-size: 24px;
+            font-size: 26px;
+            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+            animation: glow 2s infinite alternate;
         }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 10px #00f7ff; }
+            to { text-shadow: 2px 2px 20px #ff00ff; }
+        }
+
+        /* 🌟 场景结果区域 */
         .container {
             width: 90%;
             max-width: 600px;
             margin: auto;
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
             padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
         }
+
+        /* 🌟 表头 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        /* 🌟 具体场景结果 */
         .scenario {
             display: flex;
             justify-content: space-between;
@@ -34,43 +59,53 @@
             font-size: 18px;
             font-weight: bold;
             color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
         }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .human { background-color: #007BFF; } /* 人类驾驶 - 蓝色 */
         .ai { background-color: #28A745; } /* 智驾系统 - 绿色 */
+        
         .status {
             padding: 5px 10px;
             border-radius: 5px;
             font-weight: bold;
             text-align: center;
             width: 100px;
+            transition: 0.3s ease-in-out;
         }
-        .safe { background-color: green; }
-        .crash { background-color: red; }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            padding: 12px;
-            background-color: #444;
-            color: white;
-            border-radius: 10px;
-            font-size: 18px;
-        }
+
+        .safe { background-color: green; box-shadow: 0 0 10px green; }
+        .crash { background-color: red; box-shadow: 0 0 10px red; }
+
+        /* 🌟 按钮效果 */
         button {
             margin-top: 20px;
             padding: 12px 20px;
             font-size: 16px;
             border: none;
-            background-color: #FF5733;
+            background: linear-gradient(45deg, #ff5733, #c70039);
             color: white;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
+            box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.5);
         }
+
         button:hover {
-            background-color: #C70039;
+            transform: scale(1.1);
+            box-shadow: 0px 4px 15px rgba(255, 0, 0, 0.7);
         }
+
     </style>
 </head>
 <body>
@@ -95,20 +130,20 @@
 
         function runSimulation() {
             const scenarios = [
-                { name: "普通道路", humanError: 0.8, aiError: 0.1 },
-                { name: "夜间驾驶", humanError: 0.85, aiError: 0.1 },
-                { name: "突发横穿行人", unavoidable: true },
-                { name: "高速公路长途驾驶", humanError: 0.9, aiError: 0.05 },
-                { name: "极端天气（暴雪）", humanError: 0.7, aiError: 0.4 }
+                { name: "🚦 普通道路", humanError: 0.8, aiError: 0.1 },
+                { name: "🌙 夜间驾驶", humanError: 0.85, aiError: 0.1 },
+                { name: "🚸 突发横穿行人", unavoidable: true },
+                { name: "🛣 高速公路长途驾驶", humanError: 0.9, aiError: 0.05 },
+                { name: "❄️ 极端天气（暴雪）", humanError: 0.7, aiError: 0.4 }
             ];
 
             let resultHTML = "";
-            scenarios.forEach(scenario => {
+            scenarios.forEach((scenario, index) => {
                 let humanCrash = scenario.unavoidable || getRandomBoolean(scenario.humanError || 0);
                 let aiCrash = scenario.unavoidable || getRandomBoolean(scenario.aiError || 0);
 
                 resultHTML += `
-                    <div class="scenario">
+                    <div class="scenario" style="animation-delay: ${index * 0.2}s;">
                         <div>${scenario.name}</div>
                         <div class="status ${humanCrash ? 'crash' : 'safe'} human">
                             ${humanCrash ? '🚨 事故' : '✅ 安全'}
